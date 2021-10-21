@@ -1,20 +1,21 @@
 package com.cursos.cursospringboot.controllers;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cursos.cursospringboot.components.PostComponent;
 import com.cursos.cursospringboot.configuration.Pages;
+import com.cursos.cursospringboot.models.Connection;
 import com.cursos.cursospringboot.models.Post;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,51 +25,44 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/home")
 public class ControllerBasic {
 
-	public List<Post> getPosts() {
-		ArrayList<Post> postList = new ArrayList<>();
-		postList.add(
-				new Post(1, "Lorem ipsum dolor sit amet", "/img/libro_viejo_abierto.jpg", "Titulo genial", new Date()));
-		postList.add(
-				new Post(2, "Lorem ", "/img/libro_viejo_abierto.jpg", "Titulo genial 2: Electro Boogaloo", new Date()));
-		return postList;
-	}
+	@Autowired
+	@Qualifier("postComponent")
+	private PostComponent postComponent;
 
 	@GetMapping(path = { "/post", "/" })
 	public String saludar(Model model) {
-		model.addAttribute("posts", this.getPosts());
+		model.addAttribute("posts", this.postComponent.getPosts());
 		return "index";
 	}
 
 	@GetMapping(path = "/public")
 	public ModelAndView post() {
 		ModelAndView modelView = new ModelAndView(Pages.HOME);
-		modelView.addObject("posts", this.getPosts());
+		modelView.addObject("posts", this.postComponent.getPosts());
 		return modelView;
 	}
 
-	@GetMapping(path = {"/postbyid","/post/{id}"})
-	public ModelAndView getIndividualPost(
-			@PathVariable( name = "id") 
-			int id) {
-		
+	@GetMapping(path = { "/postbyid", "/post/{id}" })
+	public ModelAndView getIndividualPost(@PathVariable(name = "id") int id) {
+
 		ModelAndView modelView = new ModelAndView(Pages.POST);
-		List<Post> postFiltered = this.getPosts().stream().filter((p) -> {
+		List<Post> postFiltered = this.postComponent.getPosts().stream().filter((p) -> {
 			return p.getId() == id;
 		}).collect(Collectors.toList());
 		modelView.addObject("post", postFiltered.get(0));
 		return modelView;
 	}
-	
-	@GetMapping(path="/newpost")
+
+	@GetMapping(path = "/newpost")
 	public ModelAndView getForm() {
-		ModelAndView mv = new ModelAndView("form", "post",new Post());
+		ModelAndView mv = new ModelAndView("form", "post", new Post());
 		return mv;
 	}
-	
-	@PostMapping(path="/addnewpost")
+
+	@PostMapping(path = "/addnewpost")
 	public String addNewPost(Post post, Model model) {
 		log.info(post.toString());
-		List<Post> postList = this.getPosts();
+		List<Post> postList = this.postComponent.getPosts();
 		postList.add(post);
 		model.addAttribute("posts", postList);
 		return "index";

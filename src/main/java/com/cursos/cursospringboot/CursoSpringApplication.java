@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.cursos.cursospringboot.components.PostComponent;
 import com.cursos.cursospringboot.models.Connection;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,10 @@ public class CursoSpringApplication implements CommandLineRunner{
 	@Qualifier("beanConnection")
 	private Connection connection;
 	
+	@Autowired
+	@Qualifier("postComponent")
+	private PostComponent postComponent;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
 	}
@@ -25,7 +30,7 @@ public class CursoSpringApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		log.info(connection.getDb());
+		postComponent.getPosts().forEach(p ->{log.info(p.toString());});
 		
 	}
 
