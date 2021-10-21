@@ -1,17 +1,21 @@
 package com.cursos.cursospringboot.models;
 
+
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Post {
+@NoArgsConstructor
+public class Post implements Serializable {
 
 	private int id;
 	private String description;
-	private String uriImg;
+	private String uriImg = "http://localhost:8080/img/libro_viejo_abierto.jpg";
 	private String title;
-	private Date datePublished;
+	private Date datePublished = new Date();
 	
 	public Post(int id, String description, String uriImg, String title, Date datePublished) {
 		super();
@@ -21,7 +25,6 @@ public class Post {
 		this.title = title;
 		this.datePublished = datePublished;
 	}
-
 	
 	
 }

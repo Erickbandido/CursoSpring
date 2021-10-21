@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,5 +57,20 @@ public class ControllerBasic {
 		}).collect(Collectors.toList());
 		modelView.addObject("post", postFiltered.get(0));
 		return modelView;
+	}
+	
+	@GetMapping(path="/newpost")
+	public ModelAndView getForm() {
+		ModelAndView mv = new ModelAndView("form", "post",new Post());
+		return mv;
+	}
+	
+	@PostMapping(path="/addnewpost")
+	public String addNewPost(Post post, Model model) {
+		log.info(post.toString());
+		List<Post> postList = this.getPosts();
+		postList.add(post);
+		model.addAttribute("posts", postList);
+		return "index";
 	}
 }
