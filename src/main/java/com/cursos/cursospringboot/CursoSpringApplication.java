@@ -10,6 +10,7 @@ import com.cursos.cursospringboot.component.PostComponent;
 import com.cursos.cursospringboot.model.Connection;
 import com.cursos.cursospringboot.service.PostService;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,10 +25,14 @@ public class CursoSpringApplication implements CommandLineRunner {
 	@Qualifier("postComponent")
 	private PostComponent postComponent;
 
-	@Autowired
-	@Qualifier("postServiceDecorator1")
+	
 	public PostService postService;
 
+	@Autowired
+	public CursoSpringApplication(@Qualifier("postServiceDecorator1") PostService postService) {
+		this.postService = postService;
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
 	}
