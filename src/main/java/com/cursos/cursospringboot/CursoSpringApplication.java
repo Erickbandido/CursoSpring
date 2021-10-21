@@ -25,6 +25,7 @@ public class CursoSpringApplication implements CommandLineRunner {
 	private PostComponent postComponent;
 
 	@Autowired
+	@Qualifier("postServiceDecorator1")
 	public PostService postService;
 
 	public static void main(String[] args) {
@@ -35,9 +36,7 @@ public class CursoSpringApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		postService.validationId(postComponent.getPosts()).forEach((post) -> {
-			log.info(post.getTitle());
-		});
+		log.info(postService.validation(postComponent.getPosts()).toString());
 	}
 
 }

@@ -11,16 +11,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class PostServiceImplementation implements PostService{
+public class PostServiceImp2 implements PostService{
 
 	@Override
 	public List<Post> validation(List<Post> posts){
 		for (Post post : posts) {
-			if(post.getId()==0) {
-				log.warn("Empty ID!!!");
+			if(post.getTitle()=="") {
+				log.warn("Empty Title!!!");
 			}
 		}
 		return posts;
 	}
-	
 }
