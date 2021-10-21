@@ -1,9 +1,9 @@
-package com.cursos.cursospringboot.beans;
+package com.cursos.cursospringboot.bean;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.cursos.cursospringboot.models.Connection;
+import com.cursos.cursospringboot.model.Connection;
 
 @Component
 public class CreateConnection {

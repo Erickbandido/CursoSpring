@@ -1,4 +1,4 @@
-package com.cursos.cursospringboot.models;
+package com.cursos.cursospringboot.model;
 
 
 import java.io.Serializable;

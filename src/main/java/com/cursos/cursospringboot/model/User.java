@@ -1,4 +1,4 @@
-package com.cursos.cursospringboot.models;
+package com.cursos.cursospringboot.model;
 
 public class User {
 	private String nombre;

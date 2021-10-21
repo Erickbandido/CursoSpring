@@ -1,4 +1,4 @@
-package com.cursos.cursospringboot.controllers;
+package com.cursos.cursospringboot.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cursos.cursospringboot.components.PostComponent;
+import com.cursos.cursospringboot.component.PostComponent;
 import com.cursos.cursospringboot.configuration.Pages;
-import com.cursos.cursospringboot.models.Connection;
-import com.cursos.cursospringboot.models.Post;
+import com.cursos.cursospringboot.model.Connection;
+import com.cursos.cursospringboot.model.Post;
 
 import lombok.extern.slf4j.Slf4j;
 

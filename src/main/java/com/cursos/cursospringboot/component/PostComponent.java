@@ -1,4 +1,4 @@
-package com.cursos.cursospringboot.components;
+package com.cursos.cursospringboot.component;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.cursos.cursospringboot.models.Post;
+import com.cursos.cursospringboot.model.Post;
 
 @Component("postComponent")
 public class PostComponent {
