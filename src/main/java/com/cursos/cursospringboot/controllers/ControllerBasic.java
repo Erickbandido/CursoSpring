@@ -45,13 +45,16 @@ public class ControllerBasic {
 		return modelView;
 	}
 
-	@GetMapping(path = "/postbyid")
-	public ModelAndView getIndividualPost(@RequestParam(defaultValue = "1", name = "id", required = false) int id) {
-		ModelAndView modelViewA = new ModelAndView(Pages.POST);
+	@GetMapping(path = {"/postbyid","/post/{id}"})
+	public ModelAndView getIndividualPost(
+			@PathVariable( name = "id") 
+			int id) {
+		
+		ModelAndView modelView = new ModelAndView(Pages.POST);
 		List<Post> postFiltered = this.getPosts().stream().filter((p) -> {
 			return p.getId() == id;
 		}).collect(Collectors.toList());
-		modelViewA.addObject("post", postFiltered.get(0));
-		return modelViewA;
+		modelView.addObject("post", postFiltered.get(0));
+		return modelView;
 	}
 }
